@@ -1,2 +1,2 @@
 # MiscCodes
-codes for language learning and algorithm practicing 
+a notebook of codes for language learning and algorithm practicing 
