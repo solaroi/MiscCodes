@@ -1,74 +1,16 @@
-//============================================================================
-// Name        : test.cpp
-// Author      : Solaroi
-// Version     :
-// Copyright   : Your copyright notice
-// Description : learning C++
-//============================================================================
 
-#include <iostream>
-#include "InsertSort.h"
-#include <string>
-#include <cstring>
-#include <vector>
-#include <iterator>
-using namespace std;//or "using std::string"
 
-//extern declaration£¬indicating compiler to find the definition in other files
-extern int ExtGlb0;
-extern const int ExtGlb1;
-
-int GLB0 ,GLB1=11;
-
-void fun1(int **a)
-{
-	*a=&GLB0;
-}
-
-void fun2(int *(&a))
-{
-	a=&GLB1;
-}
-
-int main() {
-
-	//*********************************************************************************************
-	//redefine in loop
-	/* vector<int> v;
-	for (auto i = 0; i < 10; ++i)
-	{
-		int j=i;
-		v.push_back(j);
-		cout << &j << " ";//all j have the same addr
-	}
-	cout << endl;
-	for (auto &i : v)
-		cout << &i << " "; */
-	//*********************************************************************************************
-	//*********************************************************************************************
-    //cout << GLB0 << " " << GLB1 << endl;//GLB0 is default initialized
-	//int itg0 = 1, itg1; //itg1 is default initialized in main(), thus has undefined value
-	//int  itg2{};//{} -> value initialized -> default initialized -> undefined value
-	//int &rf0=itg0;//y is a reference of itg0
-	//int *pt2=&rf0;//any operations to rf0 actually happened to itg0
-	//int *pt0=&itg0;//equals to int *pt0;pt0=&itg0;
-	//int **pt1=&pt0;//equals to int **pt1;pt1=&pt0; {int *pt1=&pt0} is invalid because pt1
-	//		   //is declared to be a pointer(address) pointing to an integer
-	//		   //while &pt0 is not a pointer of such type
-	//cout<<pt2<<" "<<*pt2<<" "<<rf0<<endl;
-	//cout<<pt0<<" "<<*pt0<<" "<<&pt0<<" "<<\
-	//	  pt1<<" "<<*pt1<<" "<<**pt1<<" "<<&pt1<<endl;
-	////pt0->itg0, &pt0->pt0;pt1->*pt1,*pt1->**pt1; pt1=&pt0 leads to: *pt1=pt0, **pt1=itg0
-	////&(&pt0) is invalid because &pt0 is not lvalue
-
-	////define a function to modify the variant p outside of it:
-	////1. use *p as argument 2. reference of p
-	////define a function to modify the value of a pointer outside of it:
-	////1. use **p as argument 2. reference of the pointer
-	//cout<<pt0<<" "<<*pt0<<endl;
-	//fun1(&pt0); cout<<pt0<<" "<<*pt0<<endl;
-	//fun2(pt0);  cout<<pt0<<" "<<*pt0<<endl;
-	//cout<<ExtGlb0<<" "<<ExtGlb1<<endl;
+	//basic pointer *********************************************************************************************
+	int num1 = 1; //num2 is default initialized in main(), thus has undefined value
+	int &ref1 = num1; //y is a reference of num1
+	int *pt3 = &ref1; //any operations to ref1 actually happened to num1
+	int *pt1 = &num1; //equals to int *pt1; pt1 = &num1;
+	int **pt2 = &pt1; //equals to int **pt2; pt2 = &pt1;
+	cout << pt3 << " " << *pt3 << " " << ref1 << endl;
+	cout << pt1 << " " << *pt1 << " " << &pt1 << " " \
+		 << pt2 << " " << *pt2 << " " << **pt2 << " " << &pt2 << endl;
+	//pt1->num1, &pt1->pt1; pt2->*pt2,*pt2->**pt2; 
+	//pt2 = &pt1 leads to: *pt2 = pt1, **pt2 = num1
 	//**************************************************************************************************
 
 	//**************************************************************************************************
@@ -132,33 +74,33 @@ int main() {
 	//**********************************************************************************************
 
 	//**********************************************************************************************
-	//float arr0[]={1,2,3,4};
-	//decltype(arr0) arr1={5,5,5,5};//decttype doesn't convert arr0 to &arr0[0]
-	//constexpr std::size_t siz0=sizeof(arr0)/sizeof(arr0[0]);//initialization needs const expression
-	//cout<<siz0<<endl;
-	//auto pt0=arr0,pt1=begin(arr0);//auto transfers arr0 to &arr0[0]
-	//float *pt2=arr0,*pt4=&arr0[0];
-	//float *pt5=&arr0[3],*pt6=pt0+3;
-	//float *pt7=&arr0[4],*pt8=end(arr0);
-	//float (*pt9)[4] = &arr0;//*pt3=&arr0 is illegal, types doesn't match
-	//cout<<&arr0<<" "<<pt9<<" "<< *pt9 <<endl;//&arr0 equals arr0 when cout
-	//cout<<pt0<<" "<<pt1<<" "<<pt2<<" "<<pt4<<endl;
-	//cout<<arr0[0]<<" "<<*pt0<<endl;
-	//cout<<arr0[3]<<" "<<*(pt0+3)<<" "<<pt0[3]<<" "<<pt8[-1]<<endl;
-	//float (*arr2)[siz0]=&arr1;//arr2 points to an array of 4 floats
-	//for (auto flti:*arr2)
-	//	cout<<flti<<" ";
-	//cout<<endl;
-	//float *arr3[siz0]={pt0,pt1,pt2,pt5};//arr3 points to an array of 4 float points
-	//float (&arr4)[siz0]=arr0;//arr4 is an reference to an array of 4 floats
-	//float (*(&arr5))[siz0]=arr2;
-	//float *(&arr6)[siz0]=arr3;
-	//for (auto pti=begin(arr1);pti!=end(arr1);++pti)
-	//	*pti=*pti+float(pti-begin(arr1));
-	//for (int itgi=0;itgi<siz0;itgi++)
-	//	cout<<arr0[itgi]<<" "<<arr1[itgi]<<" "<<(*arr2)[itgi]\
-	//	    <<" "<<arr3[itgi]<<" "<<arr4[itgi]<<" "<<(*arr5)[itgi]\
-	//		<<" "<<arr6[itgi]<<endl;
+	float arr0[]={1,2,3,4};
+	decltype(arr0) arr1={5,5,5,5};//decttype doesn't convert arr0 to &arr0[0]
+	constexpr std::size_t siz0=sizeof(arr0)/sizeof(arr0[0]);//initialization needs const expression
+	cout<<siz0<<endl;
+	auto pt1 = arr0, pt2 = begin(arr0);//auto transfers arr0 to &arr0[0]
+	float *pt3=arr0,*pt4=&arr0[0];
+	float *pt5=&arr0[3],*pt6=pt1+3;
+	float *pt7=&arr0[4],*pt8=end(arr0);
+	float (*pt9)[4] = &arr0;//*pt3=&arr0 is illegal, types doesn't match
+	cout<<&arr0<<" "<<pt9<<" "<< *pt9 <<endl;//&arr0 equals arr0 when cout
+	cout<<pt1<<" "<<pt2<<" "<<pt3<<" "<<pt4<<endl;
+	cout<<arr0[0]<<" "<<*pt1<<endl;
+	cout<<arr0[3]<<" "<<*(pt1+3)<<" "<<pt1[3]<<" "<<pt8[-1]<<endl;
+	float (*arr2)[siz0]=&arr1;//arr2 points to an array of 4 floats
+	for (auto flti:*arr2)
+		cout<<flti<<" ";
+	cout<<endl;
+	float *arr3[siz0] = { pt1,pt2,pt3,pt5 };//arr3 points to an array of 4 float points
+	float(&arr4)[siz0] = arr0;//arr4 is an reference to an array of 4 floats
+	float(*(&arr5))[siz0] = arr2;
+	float *(&arr6)[siz0]=arr3;
+	for (auto pti=begin(arr1);pti!=end(arr1);++pti)
+		*pti=*pti+float(pti-begin(arr1));
+	for (int itgi=0;itgi<siz0;itgi++)
+		cout<<arr0[itgi]<<" "<<arr1[itgi]<<" "<<(*arr2)[itgi]\
+		    <<" "<<arr3[itgi]<<" "<<arr4[itgi]<<" "<<(*arr5)[itgi]\
+			<<" "<<arr6[itgi]<<endl;
     //**********************************************************************************************
 
 	//**********************************************************************************************
@@ -215,22 +157,22 @@ int main() {
 	//cout << arr0[1][1] << " " << (*(arr0 + 1))[1] << " " << *((*(arr0 + 1)) + 1) << " " << *(arr0[1] + 1) << endl;
 	//cout << sizeof(arr0) << " " << sizeof(arr0[0]) << " " << sizeof(arr0)/sizeof(arr0[0]) << endl;
 	////&arr0 arr0 &arr0[0] arr0[0] &arr0[0][0] 
-	////pt    pt0   pt1      ref1     pt2         have the same value, but differ in type
-	////pt -> arr0; pt0 -> arr0[0]=ref1; pt1=pt2 -> arr0[0][0]=ref1[0]; 
-	////pt0=arr0 degrades arr0 to a pointer to arr0[0]
-	////pt1=arr0[0] degrades arr0[0] to a pointer to arr0[0][0]
+	////pt    pt1   pt2      ref1     pt3         have the same value, but differ in type
+	////pt -> arr0; pt1 -> arr0[0]=ref1; pt2=pt3 -> arr0[0][0]=ref1[0]; 
+	////pt1=arr0 degrades arr0 to a pointer to arr0[0]
+	////pt2=arr0[0] degrades arr0[0] to a pointer to arr0[0][0]
 	//float(*pt)[3][4] = &arr0;
-	//float(*pt0)[4] = arr0, *pt1 = arr0[0], *pt2 = &arr0[0][0];
+	//float(*pt1)[4] = arr0, *pt2 = arr0[0], *pt3 = &arr0[0][0];
 	//float(*pt3)[4] = arr0 + 1, *pt4 = arr0[1], *pt5 = &arr0[1][0];
 	//float(*pt6)[4] = 1+begin(arr0), *pt7 = 1+begin(*pt6);//*pt6 equals array arr0[1], not degraded
 	//float(&ref0)[3][4] = arr0, (&ref1)[4] = arr0[0];
-	//cout << pt0 << " " << pt1 << " " << pt2 << endl;
+	//cout << pt1 << " " << pt2 << " " << pt3 << endl;
 	//cout << pt3 << " " << pt4 << " " << pt5 << endl;
-	//cout << arr0[0][0] << " " << (*pt0)[0] << " " << *pt1 << " " << *pt2 << endl;
+	//cout << arr0[0][0] << " " << (*pt1)[0] << " " << *pt2 << " " << *pt3 << endl;
 	//cout << arr0[1][0] << " " << (*pt3)[0] << " " << *pt4 << " " << *pt5 << endl;
 	//cout << pt6 << " " << pt7 << " " << **pt6 << " " << (*pt6)[1] << endl;
 	//cout << ref0[1] << " " << ref1 + 1 << " " << **(&ref1 + 1) << " " << (*(&ref1 + 1))[1] << endl;
-	//cout << sizeof(pt0) << " " << sizeof(*pt0) << " " << sizeof(*(pt0+1)) << endl;
+	//cout << sizeof(pt1) << " " << sizeof(*pt1) << " " << sizeof(*(pt1+1)) << endl;
 	//for (auto &arr : arr0)//arr equals arr0[i] i=0,1,2
 	//	for (auto flt : arr)//use ref in case arr degraded to a pointer to *arr[0]
 	//		cout << flt << " ";
@@ -244,6 +186,3 @@ int main() {
 	//		cout << *pti1 << " ";
 	//cout << endl;
 	//**********************************************************************************************
-	return 0;
-}
-
